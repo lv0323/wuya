@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!--@author Qin-->
+<mapper namespace="cn.xdl.tol.dao.ReportMapper">
+
+	<!-- 查找所有周测报告信息 -->
+	<select id="findWeekReport" parameterType="int" resultType="cn.xdl.tol.bean.WeekReport">
+		select s.subject_name,e.week_exam_name,g.grade,g.time,count(d.question_id) questions 
+			from week_grade g join week_exam_details d on(g.week_exam_id=d.week_exam_id) join week_exam e 
+			on(d.week_exam_id=e.week_exam_id) join subject s on(g.subject_id=s.subject_id) where g.user_id=#{no} group by 
+		 	s.subject_name,e.week_exam_name,g.grade,g.time
+	</select>
+	<!-- 查找所有阶段测试报告信息 -->
+	<select id="findStageReport" parameterType="int" resultType="cn.xdl.tol.bean.StageReport">
+		select s.subject_name,e.stage_exam_name,g.time,g.grade,count(d.question_id) questions 
+			from stage_grade g join stage_exam_details d on(g.stage_exam_id=d.stage_exam_id) join stage_exam e 
+			on(d.stage_exam_id=e.stage_exam_id) join subject s on(g.subject_id=s.subject_id) where g.user_id=#{no} group by 
+		 	s.subject_name,e.stage_exam_name,g.grade,g.time
+	</select>
+	<!-- 查找所有刷题测试报告信息 -->
+	<select id="findPracticeReport" parameterType="int" resultType="cn.xdl.tol.bean.PracticeReport">
+		select knowlege_name,count,score,time from practice p,knowlege k where p.knowlege_id=k.knowlege_id and user_id=#{id} group by time
+	</select>
+	<!-- 查找所有周测分数信息 -->
+	<select id="findWeekScore" parameterType="int" resultType="cn.xdl.tol.bean.SumScore">
+		select sum(e.tatal_points) testScore,sum(g.grade) userScore from week_grade g join 
+			week_exam e on(e.week_exam_id=g.week_exam_id) where g.user_id=#{id}
+	</select>
+	<!-- 查找所有阶段测试分数信息 -->
+	<select id="findStageScore" parameterType="int" resultType="cn.xdl.tol.bean.SumScore">
+		select sum(e.tatal_points) testScore,sum(g.grade) userScore from stage_grade g join 
+			stage_exam e on(e.stage_exam_id=g.stage_exam_id) where g.user_id=#{id}
+	</select>
+	<!-- 查找所有刷题测试分数信息 -->
+	<select id="findPracticeScore" parameterType="int" resultType="double">
+		select avg(score) from practice where user_id=#{id}
+	</select>
+</mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <!--@author zhangjing-->
+<mapper namespace="cn.xdl.tol.dao.TestUserMapper">
+
+	<select id="findAllUser" resultType="cn.xdl.tol.bean.User">
+		select * from user
+	</select>
+	<insert id="insertUser" parameterType="cn.xdl.tol.bean.User" >
+		insert into user values(#{user_id},#{user_name},#{user_pass},#{age},#{sex},#{city},#{email},#{tell},#{job},#{address},#{last_time},#{manager})
+	</insert>
+</mapper>

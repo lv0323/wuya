@@ -1,0 +1,32 @@
+table{ 
+table-layout:fixed; 
+empty-cells:show; 
+border-collapse: collapse; 
+font-size:14px; 
+width:100%;
+margin-top:10px;
+text-align:center;
+} 
+table td{
+	padding:7px;
+}
+table tr td:last-child{
+	padding-right:15px;
+}
+table tr{
+	padding-right:5px;
+	border-top:1px solid rgba(0, 188, 120, 0.33)
+}
+table tbody tr:last-child{
+	border-bottom:1px solid rgba(0, 188, 120, 0.33)
+}
+table thead tr:first-child{
+	background-color:rgba(0, 188, 120, 0.33);
+}
+table tbody tr:hover{
+	background-color:rgba(0, 188, 120, 0.33);
+}
+.main .table-title{
+	padding:60px 0 10px 264px;
+	
+}

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	 <!-- 
+	 
+	 
+	 		阶段测试卷配置文件
+	 
+	 
+	 
+	  -->
+<mapper namespace="cn.xdl.tol.dao.StageMapper">
+	<!-- 根据学科名搜索所有学科下的阶段 -->
+	<select id="findStageNameBySubject_Name" resultType="string" parameterType="String">
+	select stage_name from stage where subject_id=(select subject_id from subject where subject_name=#{name})
+	</select>
+	<select id="findStageExamMessage" resultType="cn.xdl.tol.vo.Stage_Exam_List_Vo" parameterType="cn.xdl.tol.po.SelectStageExamPo">
+	select stage_exam_id id,stage_exam_name name,time,tatal_points,display,b.subject_name subject,c.stage_name stage from stage_exam,subject b,stage c where on_delete=0 and c.subject_id=b.subject_id and stage_exam.stage_id=c.stage_id
+		<if test="subject!=null">
+		and b.subject_name=#{subject}
+		</if>
+		<if test="stage!=null">
+		and c.stage_name=#{stage}
+		</if>
+		<if test="search!=null">
+		and stage_exam_name like #{search}
+		</if>
+	 order by id
+	</select>
+		<!-- 删除试卷 -->
+	<update id="deleteStageExam" parameterType="int">
+		update stage_exam set on_delete=1 where stage_exam_id=#{id}
+	</update>
+	
+	
+		<!-- 搜索周测试题信息 -->
+ 	<select id="findStageExamQuestion" parameterType="int" resultType="cn.xdl.tol.vo.Stage_Exam_Question_List_vo">
+		select a.id,a.easy,a.name,a.score,a.subject,a.stage,a.knowlege from stage_exam_details,( select a.question_id id,a.easy_type easy,a.question_name name,a.score score ,b.subject_name subject,c.stage_name stage,d.knowlege_name knowlege from question a,subject b,stage c,knowlege d where a.subject_id=b.subject_id and a.stage_id=c.stage_id and a.knowlege_id=d.knowlege_id) a where stage_exam_id=#{id} and a.id=stage_exam_details.question_id
+	</select>
+	<!-- 搜索周测试卷信息 -->
+	<select id="findStageExamMessageByExamId" parameterType="int" resultType="cn.xdl.tol.vo.Stage_Exam_Message_vo">
+		select a.stage_exam_id id,b.subject_name subject,count(c.question_id) countQuestion,a.tatal_points score from stage_exam a,subject b,stage_exam_details c,stage d where a.stage_exam_id=c.stage_exam_id and a.stage_id=d.stage_id and d.subject_id=b.subject_id and a.stage_exam_id=#{id}
+	</select>
+	<!-- 计算试卷试题总分 -->
+	<select id="sumDetailsScore" resultType="int" parameterType="int">
+		select sum(b.score) from stage_exam_details a,question b where a.question_id=b.question_id and  stage_exam_id=#{id}
+	</select>
+	<update id="updateExamScore">
+		update stage_exam set tatal_points=#{1} where stage_exam_id=#{0}
+	</update>
+	<!-- 删除周测试卷试题 -->
+	<delete id="deleteExamQuestionByExamIdAndQuestionId">
+		delete from stage_exam_details where stage_exam_id=#{0} and question_id=#{1}
+	</delete>
+	
+	
+	
+	<select id="findNotInStageExamQuestionMessageByQuestionIdAndSubjectNameStageName" resultType="cn.xdl.tol.vo.Not_In_Week_Exam_Question_Vo">
+	select a.question_id qid,a.easy_type easy,a.question_name name,b.subject_name subject,c.stage_name stage,d.knowlege_name knowlege,a.score score from question a ,subject b,stage c,knowlege d,(select a.question_id from (select question_id from question,stage,subject where question.subject_id=subject.subject_id and question.stage_id=stage.stage_id and subject_name=#{1} and stage_name=#{2}) a left outer join(select question_id from stage_exam_details where stage_exam_id=#{0}) b on(a.question_id=b.question_id) where b.question_id is null) e where a.subject_id=b.subject_id and a.stage_id=c.stage_id and a.knowlege_id=d.knowlege_id and a.question_id=e.question_id
+	</select>
+	<select id="findKnowlegeNameBySubjectNameAndStageName" resultType="string">
+	select a.knowlege_name from knowlege a,subject b,stage c where a.subject_id=b.subject_id and a.stage_id=c.stage_id and b.subject_name=#{0} and c.stage_name=#{1}
+	</select>
+	<select id="findStageNameByStageExamId" resultType="string" parameterType="int">
+	select stage_name from stage,stage_exam where stage_exam.stage_id=stage.stage_id and stage_exam_id=#{id}
+	</select>
+	<insert id="insertStageExamQuestion">
+	insert into stage_exam_details(stage_exam_id,question_id) values(#{0},#{1});
+	</insert>
+
+	<update id="updateStageExamDisplay">
+	 update stage_exam set display=#{1} where stage_exam_id=#{0};
+	</update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

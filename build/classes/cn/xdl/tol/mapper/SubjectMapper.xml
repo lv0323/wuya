@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!--@author Qin-->
+<mapper namespace="cn.xdl.tol.dao.SubjectMapper">
+
+	<select id="findAllSubject" resultType="cn.xdl.tol.bean.Subject">
+		select * from subject
+	</select>
+</mapper>

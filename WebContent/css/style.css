@@ -1,0 +1,201 @@
+﻿@charset "utf-8";
+body { margin: 0 auto; color: #777; font-family: "微软雅黑",Tahoma,Verdana,Arial; font-size: 14px; }
+* { box-sizing: border-box; -moz-box-sizing: border-box; /* Firefox */ -webkit-box-sizing: border-box; /* Safari */ -webkit-tap-highlight-color: rgba(255,0,0,0); }
+* { color: #333; outline: 0; font-family: "微软雅黑",Tahoma,Verdana,Arial; font-size: 14px; font-weight: normal; font-style: normal; }
+ul, dl, dd, h1, h2, h3, h4, h5, h6, form, p { margin: 0; margin: 0; padding: 0; font-weight: normal; }
+p { margin: 0; padding: 0; }
+textarea { margin: 0; padding: 0; }
+input { margin: 0; padding: 0; outline: 0; }
+form { margin: 0; padding: 0; }
+h1, h2, h3, h4, h5, h6 { margin: 0; padding: 0; }
+ul, li, div, body { margin: 0; padding: 0; }
+img { margin: 0; margin: 0; padding: 0; padding: 0; vertical-align: middle; vertical-align: middle; border: 0; outline: 0; }
+ul li { list-style-type: none; }
+a { text-decoration: none; }
+button { margin: 0; padding: 0; border: 0; outline: 0; }
+select { box-sizing: content-box; box-sizing: content-box; -xwebkit-appearance: button; }
+
+/* PC_注册登录_绑定学员号-0225 start*/
+body { background: #fbfbfb; min-height: 800px; }
+.p167-nav { background: #fff; height: 94px; line-height: 94px; border-bottom: 1px solid #ebebeb; }
+.p167-nav-in { clear: both; overflow: hidden; width: 1040px; margin: auto; }
+.p167-nav-in-left { float: left; display: inline-block; background: url(../images/nav-in-left.png) no-repeat; width: 88px; height: 36px; line-height: 94px; margin-top: 29px; }
+.p167-nav-in-right { float: right; color: #999; font-size: 16px; }
+.p167-nav-in-right-register { color: #cccccc; }
+.p167-nav-in-right-s { font-size: 12px; margin: 0 10px; }
+.p167-bind { width: 438px; margin: 80px auto 310px; background: #fff; border: 1px solid #ebebeb; border-radius: 4px; padding: 40px; }
+    .p167-bind h1 { font-size: 20px; color: #383838; text-align: center; margin: 30px 0 40px 0; }
+.p167-bind-form { background: #fafafa; padding:; width: 358px; border: 1px solid #ebebeb; border-radius: 2px; padding: 0 20px; }
+    .p167-bind-form input { display: block; border: none; outline: none; height: 58px; line-height: 58px; padding-left: 3px; background: #fafafa; width: 318px; }
+        .p167-bind-form input.p167-bind-phone { border-bottom: 1px solid #ebebeb; }
+.p167-bind-btn { background: #18c787; color: #fff; text-align: center; line-height: 48px; border: 1px solid #15ad75; border-radius: 2px; font-size: 18px; margin: 20px 0; display: block;  }
+.p167-bind-tips { display: block; color: #777777; text-align: right; margin-bottom: 20px; cursor: pointer; }
+.p167-footer { margin: 30px auto; position: fixed; width: 100%; bottom: 0; }
+    .p167-footer p { color: #ccc; font-size: 12px; text-align: center; line-height: 20px; }
+/* PC_注册登录_绑定学员号-0225 end*/
+
+/* PC_注册登录_错误框-0225 start*/
+.p167-error { width: 438px; border: 1px solid #ff7800; border-radius: 3px; line-height: 46px; background: #fcf5dc; margin: 22px auto 10px; padding-left: 10px; }
+    .p167-error span { color: #ff7800; font-size: 16px; margin-left: 12px; }
+    .p167-error i { display: inline-block; width: 20px; height: 20px; background: url(../images/error-strong.png) no-repeat; vertical-align: text-bottom; }
+.p167-insert { width: 438px; margin: 0 auto 310px; background: #fff; border: 1px solid #ebebeb; border-radius: 4px; padding: 40px; }
+    .p167-insert h1 { font-size: 20px; color: #383838; text-align: center; margin: 30px 0 40px 0; }
+.p167-insert-send { font-size: 12px; color: #999; display: block; text-align: left; }
+.p167-insert-form { position: relative; margin-top: 10px; }
+    .p167-insert-form input { border: 1px solid #ebebeb; border-radius: 2px; height: 58px; line-height: 58px; padding-left: 20px; width: 356px; }
+    .p167-insert-form .p167-insert-verification { display: inline-block; position: absolute; top: 13px; right: 20px; background: #18c787; border: 1px solid #15ad75; border-radius: 2px; line-height: 30px; text-align: center; color: #fff; padding: 0 16px; width: 120px; height: 32px; }
+.p167-insert-verification.active { background: #ccc; border-color: #c8c8c8; }
+.p167-insert-load { background: #18c787; color: #fff; text-align: center; line-height: 48px; border: 1px solid #15ad75; border-radius: 2px; font-size: 18px; margin: 20px 0 60px; display: block; }
+/* PC_注册登录_错误框-0225 end */
+/* PC_注册登录_获取验证码-0225 start */
+.p167-blank { height: 80px; }
+/* PC_注册登录_获取验证码-0225 end */
+/* PC_注册登录_老生登录-0225 start*/
+.p167-passport { width: 440px; margin: 0 auto 0; text-align: center; display: block; margin-top: 30px; margin-bottom: 290px; }
+    .p167-passport span { font-size: 16px; color: #18c787; }
+    .p167-passport i { display: inline-block; width: 16px; height: 16px; background: url(../images/passport-arrow.png) no-repeat; vertical-align: sub; margin-left: 10px; }
+/*PC_注册登录_老生登录-0225 end*/
+/* PC_注册登录_设置密码-0225 start */
+.p167-login { width: 438px; margin: 0 auto 310px; background: #fff; border: 1px solid #ebebeb; border-radius: 4px; padding: 40px; }
+.p167-login-form { position: relative; margin-top: 10px; }
+    .p167-login-form input { border: 1px solid #ebebeb; border-radius: 2px; height: 58px; line-height: 58px; padding-left: 20px; width: 356px; background: #fafafa; }
+.p167-login-form-eye { display: inline-block; position: absolute; top: 17px; right: 20px; background: url(../images/login-form-eye-hidden.png) no-repeat; width: 24px; height: 24px; }
+    .p167-login-form-eye.active { background: url(../images/login-form-eye-show.png) no-repeat; width: 22px; height: 16px; top: 21px; }
+.p167-login-card { background: url(../images/login-card.png) no-repeat; height: 196px; background-size: contain; padding: 30px 60px; }
+    .p167-login-card p { font-size: 16px; color: #4d2d02; }
+    .p167-login-card h3 { font-size: 12px; color: #d3b181; margin: 14px 0 20px 0; }
+.p167-login-card-num { margin-top: 36px; }
+    .p167-login-card-num i { font-size: 20px; color: #ffae3d; }
+    .p167-login-card-num span { display: inline-block; width: 13px; height: 18px; background: url(../images/login-card-num-phone.png) no-repeat; margin-left: 10px; vertical-align: text-top; }
+/* PC_注册登录_设置密码-0225 end*/
+
+/* PC_注册登录_是否覆盖-0225 start */
+.p167-cover { width: 560px; border: 1px solid #ebebeb; border-radius: 4px; padding: 30px 118px 25px 120px; background: #fff; position: fixed; top: 0; left: 0; z-index: 999; display: none; }
+    .p167-cover p { font-size: 20px; color: #777; text-align: center; }
+.p167-cover-choice { clear: both; overflow: hidden; margin-top: 25px; }
+.p167-cover-choice-right { float: right; }
+.p167-cover-choice a { display: inline-block; width: 120px; height: 50px; line-height: 50px; text-align: center; font-size: 20px; color: #ccc; border: 1px solid #ebebeb; border-radius: 2px; color: #09b394; }
+    .p167-cover-choice a:hover { color: #09b394; }
+    .p167-cover-choice a.active { color: #09b394; }
+
+.p167-layer { background: #000; width: 100%; height: 100%; opacity: 0.3; filter: alpha(opacity:30); z-index: 100; position: fixed; top: 0; left: 0; display: none; }
+/* PC_注册登录_是否覆盖-0225 end*/
+
+/* PC_注册登录_输入覆盖手机号-0225 开始 */
+.p167-other { width: 438px; margin: 0 auto 310px; background: #fff; border: 1px solid #ebebeb; border-radius: 4px; padding: 40px; }
+    .p167-other h1 { font-size: 20px; color: #383838; text-align: center; margin: 30px 0 40px 0; }
+.p167-other-send { font-size: 12px; color: #999; display: block; text-align: left; }
+.p167-other-form { position: relative; margin-top: 10px; }
+    .p167-other-form input { border: 1px solid #ebebeb; border-radius: 2px; height: 58px; line-height: 58px; padding-left: 20px; width: 356px; }
+.p167-other-load { background: #18c787; color: #fff; text-align: center; line-height: 48px; border: 1px solid #15ad75; border-radius: 2px; font-size: 18px; margin: 20px 0 60px; display: block; }
+/* PC_注册登录_输入覆盖手机号-0225 结束 */
+/* PC_注册登录_通行证登录-0225 开始 */
+.p167-permit { width: 438px; margin: 80px auto 310px; background: #fff; border: 1px solid #ebebeb; border-radius: 4px; padding: 40px; }
+    .p167-permit h1 { font-size: 20px; color: #383838; text-align: center; margin: 30px 0 40px 0; }
+.p167-permit-form1 input { display: block; border: none; outline: none; height: 58px; line-height: 58px; padding-left: 3px; background: #fafafa; width: 318px; border-bottom: 1px solid #ebebeb;}
+.p167-permit-form1 { background: #fafafa; width: 358px; border: 1px solid #ebebeb; border-radius: 2px; padding: 0 20px; }
+    .p167-permit-form1 input.p167-permit-phone { border-bottom: 1px solid #ebebeb; }
+.p167-permit-btn { background: #18c787; color: #fff; text-align: center; line-height: 48px; border: 1px solid #15ad75; border-radius: 2px; font-size: 18px; margin: 20px 0; display: block; }
+.p167-permit-tips { display: block; color: #777777; text-align: right; margin-bottom: 20px; }
+/* PC_注册登录_通行证登录-0225 结束 */
+
+/* PC_注册登录_忘记密码-0225 开始 */
+.p167-find { width: 438px; margin: 80px auto 310px; background: #fff; border: 1px solid #ebebeb; border-radius: 4px; padding: 40px; }
+    .p167-find h1 { font-size: 20px; color: #383838; text-align: center; margin: 30px 0 40px 0; }
+.p167-find-form input { display: block; border: none; outline: none; height: 58px; line-height: 58px; padding-left: 3px; background: #fafafa; width: 318px; border-bottom: 1px solid #ebebeb; }
+    .p167-find-form input:last-child { border-bottom: 0; }
+.p167-find-form { background: #fafafa; width: 358px; border: 1px solid #ebebeb; border-radius: 2px; padding: 0 20px; }
+.p167-find-btn { background: #18c787; color: #fff; text-align: center; line-height: 48px; border: 1px solid #15ad75; border-radius: 2px; font-size: 18px; margin: 20px 0; display: block; }
+.p167-find-form { position: relative; background: #fafafa; width: 358px; border: 1px solid #ebebeb; border-radius: 2px; padding: 0 20px; }
+.p167-find-form-verification { display: inline-block; position: absolute; top: 130px; right: 20px; background: #18c787; border: 1px solid #15ad75; border-radius: 2px; line-height: 30px; text-align: center; color: #fff; padding: 0 22px; }
+.p167-find-form-pic { display: inline-block; position: absolute; top: 70px; right: 20px; width: 68px; height: 40px; }
+/* PC_注册登录_忘记密码-0225 结束 */
+
+/* PC_注册登录_遇到问题-0225 开始 */
+.p167-question { width: 600px; border: 1px solid #ebebeb; border-radius: 4px; padding: 50px 55px 65px 55px; background: #fff; position: absolute; top: 0; left: 0; z-index: 999; display: none; }
+    .p167-question h1 { font-size: 24px; color: #09b394; text-align: center; margin-bottom: 65px; }
+.p167-question-text { padding-bottom: 40px; }
+    .p167-question-text h2 { font-size: 16px; color: #383838; margin-bottom: 22px; }
+    .p167-question-text p { color: #777; }
+.p167-question-close { display: inline-block; width: 18px; height: 18px; background: url(../images/question-close.png) no-repeat; position: absolute; top: 18px; right: 18px; cursor: pointer; }
+/* PC_注册登录_遇到问题-0225 结束 */
+.p167-blank { width: 100%; height: 100px; }
+
+
+/* 2016.4.13 add*/
+/* 注册 */
+.p167-find-check-wrap { margin-bottom: 20px; }
+    .p167-find-check-wrap a { color: #15ad75; }
+        .p167-find-check-wrap a:hover { color: #108258; }
+    .p167-find-check-wrap label { font-size: 14px; color: #999; }
+.p167-find-check-like { display: inline-block; width: 18px; height: 18px; background: url(../images/check-before.png) no-repeat; vertical-align: bottom; }
+    .p167-find-check-like.active { background: url(../images/check-after.png) no-repeat; }
+.p167-find-check { display: none; }
+.p167-insert-form .p167-insert-verification:hover { background: #16ba7e; }
+.p167-insert-form .p167-insert-verification.active { background: #ccc; border-color: #ccc; }
+.p167-insert-form .p167-insert-verification { display: inline-block; position: absolute; top: 13px; right: 20px; background: #18c787; border: 1px solid #15ad75; border-radius: 2px; line-height: 30px; text-align: center; color: #fff; padding: 0 16px; width: 120px; height: 32px; cursor: pointer; }
+
+.p167-find-form .p167-find-form-verification:hover { background: #16ba7e; }
+.p167-find-form .p167-find-form-verification.active { background: #ccc; border-color: #ccc; }
+.p167-find-form .p167-find-form-verification { display: inline-block; position: absolute; top: 13px; right: 20px; background: #18c787; border: 1px solid #15ad75; border-radius: 2px; line-height: 30px; text-align: center; color: #fff; padding: 0 16px; width: 120px; height: 32px; cursor: pointer; }
+
+
+.p167-insert-load:hover { background: #16ba7e; }
+.p167-insert-load.active { background: #14a36f; }
+.p167-insert-send { position: absolute; top: -24px; display: none; }
+    .p167-insert-send i { font-size: 12px; color: #999; }
+.p167-insert { position: relative; }
+.p167-error { position: absolute; left: 0; top: -80px; }
+
+.p167-find-btn { background: #18c787; color: #fff; text-align: center; line-height: 48px; border: 1px solid #15ad75; border-radius: 2px; font-size: 18px; margin: 20px 0; display: block; }
+    .p167-find-btn:hover { background: #16ba7e; }
+    .p167-find-btn.active { background: #14a36f; }
+
+.p167-find-btn1 { background: #18c787; color: #fff; text-align: center; line-height: 48px; border: 1px solid #15ad75; border-radius: 2px; font-size: 18px; margin: 20px 0; display: block; }
+    .p167-find-btn1:hover { background: #16ba7e; }
+    .p167-find-btn1.active { background: #14a36f; }
+
+/* 登录提示 */
+.p167-insert h1 { margin: 30px 0 60px 0; }
+.p167-insert-load { margin: 20px 0 20px 0; }
+.p167-other-load { margin: 20px 0 20px 0; }
+.p167-find-form-tips1 { display: inline-block; position: absolute; top: 20px; /* right: 20px; */ color: #999; right: -60px; opacity: 0; filter: alpha(opacity:0); }
+    .p167-find-form-tips1 a { color: #15ad75; }
+        .p167-find-form-tips1 a:hover { color: #108258; }
+
+.p167-bind-btn:hover { background: #16ba7e; }
+.p167-bind-btn.active { background: #14a36f; }
+
+.p167-other-load:hover { background: #16ba7e; }
+.p167-other-load.active { background: #14a36f; }
+
+/* footer */
+.p167-footer { margin: 0 auto; padding: 30px 0; position: relative; }
+/* .p167-nav{margin-bottom: 80px;} */
+
+
+
+
+/* mike 20160405*/
+.icoError { width: 438px; border: 1px solid #ff7800; border-radius: 3px; line-height: 46px; background: #fcf5dc; margin: 22px auto 10px; padding-left: 10px; }
+    .icoError span { color: #ff7800; font-size: 16px; margin-left: 12px; }
+    .icoError i { display: inline-block; width: 20px; height: 20px; background: url(../images/error-strong.png) no-repeat; vertical-align: text-bottom; }
+
+.toplink1 { color: #999999; }
+.toplink2 { color: #cccccc; }
+/*.p167-footer {bottom:0;width:100%;position:fixed}*/
+.p167-passport { margin-top: 30px; margin-bottom: 290px; height: 20px; }
+
+
+/* add mengjinjin 20160422 */
+.toplink1 { color: #777; }
+.p167-nav { background: #fff; height: 56px; line-height: 56px; border-bottom: 1px solid #ebebeb; }
+.p167-nav-in-left { float: left; display: inline-block; background: url(../images/nav-in-left.png) no-repeat; width: 88px; height: 36px; line-height: 56px; margin-top: 9px; }
+.p167-permit { padding: 10px 40px 10px 40px; }
+.p167-insert-form .p167-insert-verification { right: 2px; }
+.p167-find-form-tips1 { top: 126px; right: 56px; }
+.p167-passport { margin: 20px auto 30px; }
+
+/* add mengjinjin 20160429 */
+input[type="button"], input[type="submit"], input[type="reset"] { -webkit-appearance: none; }
+textarea { -webkit-appearance: none; }

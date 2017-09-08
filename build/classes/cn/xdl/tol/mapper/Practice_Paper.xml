@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- @author   Zs -->
+
+<!-- 获取刷题试卷的sql文件 -->
+<mapper namespace="cn.xdl.tol.dao.Practice_Paper_Mapper">
+	<!-- 通过用户选择的po对象获取符合要求的试题 -->
+	<select id="findPracticePaper" resultType="cn.xdl.tol.bean.Question" parameterType="cn.xdl.tol.params.Practice_PaperPO">
+		select question_id, question_name, option_A, option_B, option_C, option_D, score
+		from question
+		<where>
+			<if test="subject_id!=null">
+			subject_id=#{subject_id}
+			</if>
+			<if test="stage_id!=null">
+			and stage_id=#{stage_id}
+			</if>
+			<if test="easy_type!=null">
+			and easy_type=#{easy_type}
+			</if>
+			<if test="knowlege_ids!=null">
+			and knowlege_id in
+				<foreach collection="knowlege_ids" index="index" item="knowlege_id" open="(" separator="," close=")" >
+					#{knowlege_id}
+				</foreach>
+			</if>
+			and on_delete=0
+		</where>
+		order by question_id
+	</select>
+	
+	<!-- 通过po对象算出试卷总分数 -->
+	<select id="findPracticePaperScore" resultType="java.lang.Integer" parameterType="cn.xdl.tol.params.Practice_PaperPO">
+		select sum(score)
+		from question
+		<where>
+			<if test="subject_id!=null">
+			subject_id=#{subject_id}
+			</if>
+			<if test="stage_id!=null">
+			and stage_id=#{stage_id}
+			</if>
+			<if test="easy_type!=null">
+			and easy_type=#{easy_type}
+			</if>
+			<if test="knowlege_ids!=null">
+			and knowlege_id in
+				<foreach collection="knowlege_ids" index="index" item="knowlege_id" open="(" separator="," close=")" >
+					#{knowlege_id}
+				</foreach>
+			</if>
+			and on_delete=0
+		</where>
+	</select>
+	
+	<!-- 通过学科id和阶段id查询知识点 -->
+	<select id="findKnowlegeBySubject_idAndStage_id" resultType="cn.xdl.tol.bean.Knowlege">
+		select * 
+		from knowlege 
+		where subject_id=#{0} and stage_id=#{1}
+		order by knowlege_id asc
+	</select>
+	
+	<!-- 通过学科id查询难度集合 -->
+	<select id="findAllEasy_TypeBySubject_id" parameterType="int" resultType="java.lang.String">
+		select distinct easy_type
+		from question
+		where subject_id=#{subject_id}
+	</select>
+	
+	<!-- 通过学科id获取学科对象 -->
+	<select id="findSubjectById" parameterType="int" resultType="cn.xdl.tol.bean.Subject">
+		select * 
+		from subject
+		where subject_id=#{subject_id}
+		order by subject_id asc
+	</select>
+	
+	<!-- 通过学科id获取所有所有知识点 -->
+	<select id="findAllKnowledgeBySubject_id" parameterType="int" resultType="cn.xdl.tol.bean.Knowlege">
+		select *
+		from knowlege
+		where subject_id=#{subject_id}
+		order by knowlege_id asc
+	</select>
+	
+	<!-- 查询试题中包含的所有学科id -->
+	<select id="findSubjectIdFromQuestion" resultType="java.lang.Integer">
+		select distinct subject_id
+		from question
+		order by subject_id asc
+	</select>
+	
+	<!-- 查询刷题最多的前3名用户 -->
+	<select id="findMaxPracticeUser" resultType="cn.xdl.tol.vo.Practice_Max_User_VO">
+		select max(count) count,user_id
+		from practice 
+		group by user_id 
+		limit 0,3
+	</select>
+	
+	
+	<!-- 根据用户刷题结果插入刷题表 -->
+	<insert id="insertPractice" parameterType="cn.xdl.tol.params.InsertPracticePO">
+		insert into practice 
+		values(null, #{user_id}, now(), ${score}, null, #{count})
+	</insert>
+	
+	<!-- 通过用户id查询最新一次刷题id -->
+	<select id="findLastPracticeByUser_Id" resultType="java.lang.Integer" parameterType="int">
+	 	select practice_id 
+	 	from practice
+	 	where user_id=#{user_id} 
+	 	order by time desc 
+	 	limit 0,1
+	</select>
+	
+	<!-- 通过题号查询试题 -->
+	<select id="findQuestionById" resultType="cn.xdl.tol.bean.Question" parameterType="java.lang.Integer">
+		select *
+		from question
+		where question_id=#{question_id}
+		order by question_id asc
+	</select>
+	
+	<!-- 通过用户刷题答案对象插入用户刷题答案表 -->
+	<insert id="insertPractice_Question" parameterType="cn.xdl.tol.bean.Practice_Question">
+		insert into practice_question
+		values(#{practice_question_id}, #{practice_id}, #{question_id}, #{user_answer})
+	</insert>
+	
+	<!-- 通过知识点id查询知识点名称 -->
+	<select id="findKnowlege_NameById" parameterType="java.lang.Integer" resultType="java.lang.String">
+		select knowlege_name 
+		from knowlege
+		where knowlege_id=#{knowlege_id}
+	</select>
+	
+	<!-- 根据用户id查找用户 -->
+	<select id="findUserById" parameterType="java.lang.Integer" resultType="cn.xdl.tol.bean.User">
+		select *
+		from user
+		where user_id=#{user_id}
+	</select>
+	
+</mapper>

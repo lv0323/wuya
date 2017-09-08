@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!--@author Qin-->
+<mapper namespace="cn.xdl.tol.dao.WeekExamMapper">
+	<!-- 查询所有学科 -->
+	<select id="findAllSubject" resultType="cn.xdl.tol.bean.Subject">
+		select * from subject
+	</select>
+	
+	<!-- 根据学科编号查询所对应的周信息 -->
+	<select id="findWeeklyType" parameterType="int" resultType="cn.xdl.tol.bean.Weekly_Type">
+		select * from weekly_type where subject_id=#{subject_id}
+	</select>
+	
+	<!-- 根据周编号查询对应的试卷编号 -->
+	<select id="findWeekExamId" parameterType="int" resultType="cn.xdl.tol.bean.Week_Exam">
+		select * from week_exam where display=0 and on_delete=0 and weekly_type_id=#{weekly_type_id}
+	</select>
+	<!-- 根据试卷编号查询对应的试卷信息 -->
+	<select id="findWeekExam" parameterType="int" resultType="cn.xdl.tol.bean.Week_Exam">
+		select * from week_exam where week_exam_id=#{week_exam_id}
+	</select>
+	
+	<!-- 根据周测试卷编号查询对应的试题 -->
+	<select id="findWeekExamQuestion" parameterType="int" resultType="cn.xdl.tol.bean.Question">
+		select q.* from question q,(select * from week_exam_details where week_exam_id = #{week_exam_id}) d where  q.question_id=d.question_id
+	</select>
+	<!-- 向周测成绩表里插入数据（除了成绩） -->
+	<insert id="insertWeekGrade" parameterType="cn.xdl.tol.bean.Week_Grade">
+		insert into week_grade (user_id,week_exam_id,subject_id,time) values(#{user_id},#{week_exam_id},#{subject_id},#{time})	
+	</insert>
+	
+	<!-- 根据用户id和用户答题时间查询成绩表信息 -->
+	<select id="findWeekGrade" resultType="cn.xdl.tol.bean.Week_Grade" 
+parameterType="cn.xdl.tol.bean.Week_Grade">
+		select * from week_grade where user_id=#{user_id} and time=#{time}
+	</select>
+	
+	<!-- 根据成绩表id向周测用户答案表里添加数据 -->
+	<insert id="insertWeekAnswer" parameterType="cn.xdl.tol.bean.Week_Answer">
+	    insert into week_answer(week_grade_id,question_id,user_answer,is_right) values(#{week_grade_id},#{question_id},#{user_answer},#{is_right})
+	</insert>
+	
+	<!-- 向周测成绩表里插入成绩 -->
+	<update id="updateGradeToWeek" parameterType="cn.xdl.tol.bean.Week_Grade">
+		update Week_Grade set grade=#{grade} where week_grade_id=#{week_grade_id}
+	</update>
+	
+	<!-- 根据用户id查询用户 -->
+	<select id="findUserById" parameterType="int" resultType="cn.xdl.tol.bean.User">
+ 		select * from user where user_id = #{no}
+ 	</select>
+ 	
+ 	<!-- 根据试卷id查询该试卷中涉及的知识点名字和每个知识点的数量 -->
+ 	<select id="findWeekExamKnowlege" resultType="cn.xdl.tol.vo.WeekExamKnowlegeVo" parameterType="int">
+		select sum(score) grade, max(k.knowlege_id) knowlege_id,count(k.knowlege_id) count,max(k.knowlege_name) knowlege_name from 
+		knowlege k,(select q.* from question q,(select * from week_exam_details w where w.week_exam_id = #{week_exam_id}) d where 
+		q.question_id=d.question_id)a where k.knowlege_id=a.knowlege_id group by k.knowlege_id order by k.knowlege_id;	
+ 	</select>
+ 	
+ 	<!-- 根据用户周测成绩表id查找答对的试题对应的知识点名字和数量 -->
+ 	<select id="findRihgtWeekExamKnowlege" resultType="cn.xdl.tol.vo.WeekExamKnowlegeVo" parameterType="int">
+		select k.knowlege_name knowlege_name,s.knowlege_id 
+		knowlege_id,s.count count from knowlege k ,(select  
+		q.knowlege_id knowlege_id,sum(a.is_right) count from question q,
+		(select * from  week_answer wa where wa.week_grade_id=#{week_grade_id}) a where 
+		q.question_id=a.question_id group by q.knowlege_id)s where 
+		k.knowlege_id=s.knowlege_id;	
+ 	</select>
+ 	
+ 	<!-- 根据用户周测成绩表id查找答对的知识点对应的分数 -->
+ 		<select id="findRihgtWeekExamKnowlegeGrade" resultType="cn.xdl.tol.vo.WeekExamKnowlegeVo" parameterType="int">
+		select k.knowlege_name knowlege_name,s.knowlege_id 
+		knowlege_id,s.count count,s.grade from knowlege k ,(select sum(score) grade,
+		q.knowlege_id knowlege_id,sum(a.is_right) count from question q,
+		(select * from  week_answer wa where wa.week_grade_id=#{week_grade_id} and is_right=1) a where 
+		q.question_id=a.question_id group by q.knowlege_id)s where k.knowlege_id=s.knowlege_id;	
+ 	</select>
+ 	
+ 	<!-- 根据周测成绩表id查询试题信息以及用户的选项 -->
+ 		<select id="findQuestionUserAnswer" resultType="cn.xdl.tol.vo.WeekExamQuestionUserVo" parameterType="int">
+			select q.*,user_answer  from question q,(select * from week_answer where week_grade_id=#{week_grade_id}) a where q.question_id= a.question_id; 		
+ 		</select>
+</mapper>

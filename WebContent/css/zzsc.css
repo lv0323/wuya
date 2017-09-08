@@ -1,0 +1,98 @@
+body, html { font-size: 100%; 	padding: 0; margin: 0;}
+
+/* Reset */
+*,
+*:after,
+*:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+/* Clearfix hack by Nicolas Gallagher: http://nicolasgallagher.com/micro-clearfix-hack/ */
+.clearfix:before,
+.clearfix:after {
+	content: " ";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+body{
+	background: #494A5F;
+	color: #D5D6E2;
+	font-weight: 500;
+	font-size: 1.05em;
+	font-family: "Microsoft YaHei","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif;
+}
+a{ color: rgba(255, 255, 255, 0.6);outline: none;text-decoration: none;-webkit-transition: 0.2s;transition: 0.2s;}
+a:hover,a:focus{color:#74777b;text-decoration: none;}
+.htmleaf-container{
+	margin: 0 auto;
+}
+.content111 {
+	margin: 0 auto;
+}
+.first_menu, .second_menu,.third_menu, .fourth_menu {
+	margin: 10px;
+	padding: 0px;
+	border: 3px solid #CAD5D9;
+	border-radius: 10px 10px;
+	width: 98%;
+}
+.first_menu h1, .second_menu h1,.third_menu h1,.fourth_menu h1 {
+	display: inline-block;
+	padding: 22px;
+	font-size: 20px;
+	font-weight: bold;
+	width: 190px;
+}
+.first_menu h1 {
+	border: 1px solid #5DC9C9;
+	border-radius: 7px 0px  0px 7px;
+	background-color: #5DC9C9;
+}
+.second_menu h1 {
+	border: 1px solid #5DC9C9;
+	border-radius: 7px 0px  0px 7px;
+	background-color: #5DC9C9;
+}
+.third_menu h1 {
+	border: 1px solid #5DC9C9;
+	border-radius: 7px 0px  0px 7px;
+	background-color: #5DC9C9;
+}
+.fourth_menu h1 {
+	border: 1px solid #5DC9C9;
+	border-radius: 7px 0px  0px 7px;
+	background-color: #5DC9C9;
+}
+.first_menu div, .second_menu div, .third_menu div, .fourth_menu div {
+	position: relative;
+	display: inline-block;
+}
+.first_menu div {
+	top: -2px;
+	left: 50px;
+}
+.second_menu div, .third_menu div, .fourth_menu div {
+	top: 15px;
+	left: 50px;
+}
+.dowebok {
+	display: inline-block;
+	text-align: center;
+}
+.dowebok li {
+	margin: 0;
+}
+.submit_choose {
+	margin: 20px;
+	position: relative;
+	left: 450px;
+}
+#submit_choose_btn {
+	background-color: #5DC9C9 !important;
+}

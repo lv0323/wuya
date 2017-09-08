@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- zj -->
+<mapper namespace="cn.xdl.tol.dao.QuestionMapper">
+	<!-- 查询所有试题，包含学科id，知识点Id -->
+	<select id="findAllQuestion" resultType="cn.xdl.tol.bean.Question">
+		select * from question
+		and on_delete=0
+	</select>
+	<!-- 根据试题id查询所有状态为未删除的试题，包含学科名，知识点名 
+	<select id="findQuestionById" resultType="cn.xdl.tol.bean.QuestionAndSubjectAndKnowlege">
+		select
+		question_id,question_name,score,easy_type,knowlege_name,subject_name
+		from question q join
+		knowlege k on
+		(q.knowlege_id=k.knowlege_id) join
+		subject s
+		on(s.subject_id=q.subject_id) where question_id=#{0} and
+		on_delete=0
+	</select>
+	-->
+	<!-- 根据试题id查询所有状态为未删除的试题的是所有信息，包含学科名，知识点名 -->
+	<select id="findQuestionAllById" resultType="cn.xdl.tol.bean.QuestionAndSubjectAndKnowlege">
+		select
+		question_id,question_name,option_B,option_C,option_D,answer,option_A,score,easy_type,knowlege_name,subject_name
+		from question q join
+		knowlege k on
+		(q.knowlege_id=k.knowlege_id) join
+		subject s
+		on(s.subject_id=q.subject_id) where question_id=#{0} and
+		on_delete=0
+	</select>
+	<!-- 根据试题名模糊查询所有状态为未删除的试题，包含学科名，知识点名 -->
+	<select id="findQuestionByName" resultType="cn.xdl.tol.bean.QuestionAndSubjectAndKnowlege">
+		select
+		question_id,question_name,score,easy_type,knowlege_name,subject_name
+		from question q join
+		knowlege k on
+		(q.knowlege_id=k.knowlege_id) join
+		subject s
+		on(s.subject_id=q.subject_id) where question_name like #{0}
+		and on_delete=0
+	</select>
+
+	<insert id="insertQuestion" parameterType="cn.xdl.tol.bean.Question">
+		insert into
+		question(question_name,option_A,option_B,option_C,option_D,answer,score,easy_type,knowlege_id,stage_id,weekly_type_id,subject_id,on_delete)
+		values(#{question_name},#{option_A},#{option_B},#{option_C},#{option_D},#{answer},#{score},#{easy_type},#{knowlege_id},#{stage_id},#{weekly_type_id},#{subject_id},#{on_delete})
+	</insert>
+
+	<select id="findQuestionBySubjectAndKnowlege" resultType="cn.xdl.tol.bean.Question">
+		select
+		* from question where subject_id=#{0} and knowlege_id=#{1} and
+		on_delete=0
+	</select>
+
+	<!-- 根据学科名查询学科id -->
+	<select id="findSubjectIdBySubjectname" resultType="cn.xdl.tol.bean.Subject">
+		select
+		subject_id from subject where subject_name=#{0}
+	</select>
+
+	<!-- 根据知识点名查询知识点id -->
+	<select id="findKnowlegeIdByKnowlegename" resultType="cn.xdl.tol.bean.Knowlege">
+		select
+		knowlege_id from knowlege where knowlege_name=#{0}
+	</select>
+
+	<!-- 根据学科id和知识点id查询所有状态为未删除的试题，包含学科名，知识点名 -->
+	<select id="findallQuestion" resultType="cn.xdl.tol.bean.QuestionAndSubjectAndKnowlege">
+		select
+		question_id,question_name,score,easy_type,knowlege_name,subject_name
+		from question q join
+		knowlege k on
+		(q.knowlege_id=k.knowlege_id) join
+		subject s
+		on(s.subject_id=q.subject_id) where q.subject_id=#{0} and
+		q.knowlege_id=#{1} and on_delete=0
+	</select>
+	<!-- 根据学科id和知识点id,或手动输入条件查询所有状态为未删除的试题，包含学科名，知识点名 -->
+	<select id="findallQuestionByallchoose" parameterType="cn.xdl.tol.bean.QuestionParam"
+		resultType="cn.xdl.tol.bean.QuestionAndSubjectAndKnowlege">
+		select
+		question_id,question_name,score,easy_type,knowlege_name,subject_name
+		from question q join knowlege k on(q.knowlege_id=k.knowlege_id)
+		join
+		subject s on(s.subject_id=q.subject_id)
+		<where>
+			and on_delete=0
+			<if test="subject_id!=0">
+				and q.subject_id=#{subject_id}
+			</if>
+			<if test="knowlege_id!=0">
+				and q.knowlege_id=#{knowlege_id}
+			</if>
+			<if test="question_name!=null">
+				and question_name like #{question_name}
+			</if>
+		</where>
+	</select>
+	<!-- 根据题号删除一道试题，将其删除状态改为1表已删除 -->
+	<delete id="removeQuestionById">
+		update question set on_delete=1 where question_id=#{0}
+	</delete>
+	<!-- 根据题号更改一道试题 -->
+	<update  id="updateQuestionById">
+	 update question set easy_type=#{0},question_name=#{1},score=#{2},option_A=#{3},option_D=#{4},answer=#{5},option_B=#{6},option_C=#{7} where question_id=#{8}
+	</update>
+	<!-- 查询所有试题，包含学科id，知识点Id -->
+	<select id="findStageAndWeekId" resultType="cn.xdl.tol.bean.Knowlege">
+		select * from knowlege where knowlege_id=#{0}
+	</select>
+	
+	
+	<!-- 根据周类型名和学科id获取周号id-->
+	<select id="findWeekTypeByWeekName" resultType="cn.xdl.tol.bean.Weekly_Type">
+		select * from  weekly_type where weekly_type_name=#{0} and subject_id=#{1}
+	</select>
+	
+	<!-- 根据阶段名获取阶段号id-->
+	<select id="findStageIdByStageName" resultType="cn.xdl.tol.bean.Stage">
+		select * from  stage where stage_name=#{0}
+	</select>
+	
+	
+	<!--  根据阶段id和学科id查询对应试题-->
+	<select id="findallQuestionWithStage" resultType="cn.xdl.tol.bean.QuestionAndSubjectAndKnowlege">
+		select	question_id,question_name,score,easy_type,knowlege_name,subject_name
+		from question q join knowlege k on(q.knowlege_id=k.knowlege_id) 
+		                join subject s on(s.subject_id=q.subject_id) 
+		where on_delete=0 and q.stage_id=#{0} and q.subject_id=#{1}
+	</select>
+	<!--  根据周号id和学科id查询对应试题-->
+	<select id="findallQuestionWithWeek" resultType="cn.xdl.tol.bean.QuestionAndSubjectAndKnowlege">
+		select	question_id,question_name,score,easy_type,knowlege_name,subject_name
+		from question q join knowlege k on(q.knowlege_id=k.knowlege_id) 
+		                join subject s on(s.subject_id=q.subject_id) 
+		where on_delete=0 and q.weekly_type_id=#{0} and q.subject_id=#{1}
+	</select>
+	<!-- 添加一套阶段试题 -->
+	<insert id="addStageExam">
+		insert into stage_exam values(null,#{0},#{1},now(),0,100,0)
+	</insert>
+
+	<!-- 根据阶段试题名查询试题id -->
+	<select id="findStageIdByName" resultType="cn.xdl.tol.bean.Stage_Exam">
+		select stage_exam_id from stage_exam where stage_exam_name=#{0}
+	</select>
+	<!-- 根据阶段试卷编号 向阶段细节表 中插入一道试题Id -->
+	<insert id="addStageExamDetail">
+		insert into stage_exam_details(question_id,stage_exam_id) values(#{0}, #{1})
+	</insert>
+	
+	
+	<!-- 添加周测段试题 -->
+	<insert id="addWeekExam">
+		insert into week_exam values(null,#{0},#{1},now(),0,100,0)
+	</insert>
+	<!-- 根据周试题名查询试题id -->
+	<select id="findWeekIdByName" resultType="cn.xdl.tol.bean.Week_Exam">
+		select week_exam_id from week_exam where week_exam_name=#{0}
+	</select>
+	<!-- 根据周试卷编号 向阶段细节表 中插入一道试题Id -->
+	<insert id="addWeekExamDetail">
+		insert into week_exam_details(question_id,week_exam_id) values(#{0}, #{1})
+	</insert>
+</mapper>

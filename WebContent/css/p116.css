@@ -1,0 +1,248 @@
+
+/*======================================================================
+	x-css.css 全局样式 2015-1-30 11:42:04
+======================================================================*/
+*{	
+	-moz-box-sizing: content-box;  /*Firefox3.5+*/
+	-webkit-box-sizing: content-box; /*Safari3.2+*/
+	-o-box-sizing: content-box; /*Opera9.6*/
+	-ms-box-sizing: content-box; /*IE8*/
+	box-sizing: content-box; /*W3C标准(IE9+，Safari5.1+,Chrome10.0+,Opera10.6+都符合box-sizing的w3c标准语法)*/
+	font-family:"Helvetica Neue", Helvetica, Arial, "Microsoft YaHei","\5fae\8f6f\96c5\9ed1", sans-serif;
+}
+img{ vertical-align:middle;}
+.clearfix{display:block;zoom:1;}
+.clearfix:after{content:".";display:block;visibility:hidden;height:0;clear:both;}
+
+body{font-size:14px; line-height:1.42857;}
+a{ color:#8b8b8b; text-decoration:none;}
+a:hover{ color:#8b8b8b;}
+
+body{ background-color:#eeeeee;}
+
+/* 布局 2015-1-27 11:36:57 */
+.GridMainWrap{ background-color:#fff;}
+.GridMain{ width:960px; margin:0 auto; padding-bottom:20px;}
+.GridMain{display:block;zoom:1;}
+.GridMain:after{content:".";display:block;visibility:hidden;height:0;clear:both;}
+.GridMain-left{ width:660px; float:left;}
+.GridMain-right{ width:284px; float:right;}
+.Grid-left{float:left;}
+.Grid-right{float:right;}
+
+/* 按钮*/
+.ButtonBlue{ display:inline-block;background:#4ab2c8; font-size:14px;color:#fff; text-align:center;padding:7px 16px;margin-right:10px; clear:both;text-decoration:none; text-align:center;vertical-align:middle;cursor:pointer; border:0 none;outline:none;}
+.ButtonBlue:hover{color:#fff;text-decoration:none;}
+.ButtonGray{ display:inline-block;background:#dddddd; font-size:14px;color:#767676; text-align:center;padding:7px 16px;margin-right:10px; clear:both;text-decoration:none; text-align:center;vertical-align:middle;cursor:pointer; border:0 none;outline:none;}
+.ButtonGray:hover{color:#767676;text-decoration:none;}
+
+/* 搜索  */
+.p116-search-wrap{}
+.p116-search{border: 1px solid #d3d3d3; background:#fff; height:32px; position:relative;}
+.p116-search-input{z-index: 1;width:186px;padding:6px 2px 0px 8px;padding-top:10px\9;vertical-align: middle; outline:none; border:none;}
+.p116-search-button{ background:#4ab2c8 url(../images/search/search.png) no-repeat center center;width:35px;height:34px;border:0;margin:0;padding: 0;outline:none; position:absolute; top:-1px;left:196px;}
+/*======================================================================
+	 表格 2015-5-8 15:40:47
+======================================================================*/
+.p116-table{width:100%; border-collapse:collapse; border-spacing:0;}
+.p116-table th,
+.p116-table td{font-size:14px; text-align:center;}
+.p116-table th{font-weight:bold;}
+.p116-table tbody td{color:#989898;}
+.p116-table tbody a{color:#4ab2c8; }
+.p116-table tbody a:hover{ text-decoration:none;}
+/* other */
+.p116-table{}
+.p116-table td,
+.p116-table th{border:0;}
+.p116-table th{background-color:#ecf9fc; font-size:14px; color:#4ab2c8; padding:8px 2px;}
+.p116-table td {border-bottom:1px solid #eeeeee;padding:10px 2px;}
+.p116-table .mCblue{color:#4ab2c8;font-style:normal;}
+.p116-table .mCblue a{color:#4ab2c8;}
+.p116-table .mArrow{ cursor:pointer;}
+.p116-table .mArrowUp{ background:url(../images/table/icon-arrow-up.png) right center no-repeat; padding-right:16px;}
+.p116-table .mArrowDown{ background:url(../images/table/icon-arrow-down.png) right center no-repeat; padding-right:16px;}
+.p116-checkbox{ text-align:center;}
+.p116-tdCheck{margin: 0 3px 0 0;padding: 0; position: relative; vertical-align: middle;z-index: 5;}
+.p116-table th.width32 {width:32px;}
+
+/*======================================================================
+	 表单 2015-5-8 15:40:47
+======================================================================*/
+.p116-info{}
+.p116-info h2{background:#ecf9fc;color:#4ab2c8;font-size:18px; font-weight:normal;padding:10px 0 10px 20px;}
+.p116-info-item{margin-bottom:10px; clear:both; position:relative;line-height:30px;font-size:16px;color:#888;}
+.p116-info-item .mTitle{float:left;text-align:right;white-space:nowrap;width:120px; font-weight:bold;}
+.p116-info-item .mInputBlock{overflow:hidden;word-wrap:break-word;margin-left:125px;padding:0 10px;}
+.p116-info-item .mInputBlock .mSelectInput{background: #fff;border: 1px solid #ccc;box-sizing: border-box;line-height:22px;padding:3px;width:auto;vertical-align:middle;}
+.p116-info .p116-margin-top{margin-top:30px;}
+
+/*======================================================================
+	PublicFooter.css 底部信息 2015-1-30 11:38:07
+======================================================================*/
+/* 在线人数 */
+.PublicFooter .pOnlineWrap{width:960px; margin:0 auto; position:relative; height:80px;}
+.PublicFooter .pOnline{ background-color:#4ab2c8; width:90px; height:90px; text-align:center; border-radius:50%; border:5px solid #f1f1f1; position:absolute; left:430px; top:-20px;}
+.PublicFooter .pOnline span{ line-height:20px; padding-top:25px; display:block; color:#ffffff; font-size:12px;}
+.PublicFooter .pOnline span i{font-style:normal; font-size:22px;}
+/* 版权 */
+.PublicFooter .pCopyright{ font-size:14px; color:#555555; text-align:center; padding:10px 0 30px 0;}
+.PublicFooter .pCopyright em{ font-family:arial;}
+.PublicFooter .pCopyright .pQRcodeWrap{width:960px; margin:0 auto; position:relative;}
+.PublicFooter .pCopyright .pQRcode{position:absolute; top:-50px; right:100px; width:120px; text-align:center;}
+.PublicFooter .pCopyright .pQRcodeTips{text-align:center; padding-top:5px; padding-left:5px;}
+
+/*======================================================================
+	PublicHeader.css 顶部导航 2015-1-26 13:47:18	
+======================================================================*/
+.PublicHeaderWrap{ background-color:#4ab2c8; height:70px; width:100%; z-index:2; position:relative;}
+.PublicHeader{ width:960px; height:100%; margin:0 auto; position:relative;}
+.PublicHeader .pLogo{ float:left; width:300px; height:40px;margin-top:15px; background:url(../images/logo.png) 0 50% no-repeat; overflow:hidden;}
+.PublicHeader .pLogo a{ display:block; width:100%; height:100%;}
+.PublicHeader .pphone { 
+	position: absolute;
+    top: 1000px;
+    right: 10px;
+}
+/* .PublicHeader .p400 {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 16px;
+    color: #fff;
+    background: url(../images/icon-phone-32.png) 0 center no-repeat;
+    height: 32px;
+    line-height: 32px;
+    padding-left: 32px;
+} */
+
+/* 控制区 */
+.PublicHeader .pControl{ float:right; padding-top:19px;}
+.PublicHeader .pControl a,
+.PublicHeader .pControl span{ opacity:1;}
+.PublicHeader .pControl a:hover{ opacity:.7;}
+/* 控制区 - 意见反馈 */
+.PublicHeader .pFeedback{background:url(../images/icon-xinfeng-32.png) center center no-repeat; width:32px; height:32px; display:inline-block;}
+/* 控制区 - 设置 */
+.PublicHeader .pSetting{ background:url(../images/icon-seeting-32.png) center center no-repeat; width:32px; height:32px; display:inline-block; margin-left:5px;}
+.PublicHeader .pSettingMenu {position:absolute; right:38px; top:60px;width:120px;  display:block; border-radius:5px; display:none;}
+.PublicHeader .pSettingMenu b { display:block; width:0; height:0; margin:-9px 0 5px 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 10px solid #434a54; position:absolute; right:20px;}
+.PublicHeader .pSettingMenu ul{margin:0; padding:0; list-style:none; background:#393f48; border-radius:5px;}
+.PublicHeader .pSettingMenu ul li{ padding:0; margin:0;border-radius:5px;}
+.PublicHeader .pSettingMenu ul li a{background:#434a54;text-decoration:none; color:#fff; font-size:14px; height:50px; line-height:50px; display:block; text-align:center;border-radius:5px;}
+.PublicHeader .pSettingMenu ul li a:hover{background:#393f48;}
+/* 控制区 - 线 */
+.PublicHeader .pLine{ background: url(../images/PublicHeader/line.png) center center no-repeat; width:10px; height:32px; display:inline-block;}
+/* 控制区 - 退出 */
+.PublicHeader .pLogout{ background:url(../images/PublicHeader/icon-logout-32.png) center center no-repeat; width:32px; height:32px; display:inline-block;}
+
+/* 400 */
+.PublicHeader .p400{ float:right; font-size:16px; color:#fff; background:url(../images/icon-phone-32.png) 0 center no-repeat; height:70px; line-height:70px; padding-left:32px; padding-right:40px;}
+.PublicHeader .p400 a{ color:#fff; text-decoration:none;}
+.PublicHeader .p400 a:hover{ color:#fff; text-decoration:none;}
+
+/* 用户信息 */
+.PublicHeader .pUser{ float:right; padding-top:10px; height:50px; padding-right:20px;}
+.PublicHeader .pUser img{ width:50px; height:50px; border-radius:50%; border:2px solid #fff; vertical-align:middle;}
+.PublicHeader .pUser .pUserName{ font-size:16px; color:#ffffff; padding-left:5px;}
+
+
+/*======================================================================
+	PublicNavWrap.css 二级导航 2015-4-2 09:20:06
+======================================================================*/
+.PublicNavWrap{height: 45px;width: 100%;background-color:#fff; border-bottom:1px solid #dcdcdc; padding:5px 0;box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);}
+.PublicNav-space{ height:12px; background-color:#fff;}
+.PublicNav{width:960px; height:100%; margin:0 auto;}
+.PublicNav ul{ list-style:none;margin:0;padding:0;margin-left:0px; }
+.PublicNav li{float:left;}
+.PublicNav li a{padding:0 10px 0 0px; text-align:center;font-size:18px;height: 45px;line-height:45px;}
+.PublicNav li i{ background: url(../images/PublicNav/PublicNav-line.png) no-repeat right center; display:inline-block; width:32px; height:45px;margin-left:15px; vertical-align:middle;}
+.PublicNav li a,
+.PublicNav li a:visited{color:#a0a0a0;}
+.PublicNav li a.mOn,
+.PublicNav li a.mOn i,
+.PublicNav li a:hover{color:#4ab2c8;}
+.PublicNav li a.mOn i,.PublicNav li a:hover i{background: url(../images/PublicNav/PublicNav-lineBlue.png) no-repeat right center;}
+
+/*======================================================================
+	PublicPage.css 分页 2015-5-8 16:16:26
+======================================================================*/
+.PublicPage{ text-align:center;font-size:14px;}
+.PublicPage a,
+.PublicPage span{display:inline-block; overflow:hidden;vertical-align:middle; padding:0px 3px 0px 6px;margin:0 0px;border-top:1px solid #bee3eb;border-bottom:1px solid #bee3eb;height:34px;line-height:34px;width:20px;margin-left:-4px;marign-right:-4px;}
+.PublicPage a:hover {text-decoration:none;}
+.PublicPage .pInfo{padding:0; margin:0;}
+.PublicPage .pInfo b{}
+.PublicPage .pCurrent{ color:#4ab2c8;}
+.PublicPage .pDisabled{}
+.PublicPage .pAdorn{padding:0; margin:0; background:none; border:0;font-family:"Simsun";}
+.PublicPage .pFirst,
+.PublicPage .pPrev,
+.PublicPage .pNext,
+.PublicPage .pLast{}
+.PublicPage .pPrev,
+.PublicPage .pNext{width:30px; height:34px;border:1px solid #bee3eb;}
+.PublicPage .pPrev{background:#ddf5fa url(../images/page/pre.png) no-repeat center center; border-top-left-radius:3px; border-bottom-left-radius:3px;}
+.PublicPage .pNext{background:#ddf5fa url(../images/page/next.png) no-repeat center center; border-top-right-radius:3px; border-bottom-right-radius:3px;}
+.PublicPage .pGo{ font-style:normal;color:#6a6a6a;}
+.PublicPage .pGoNumber{display:inline-block; overflow:hidden; line-height:1.231; vertical-align:middle;margin:0 0px; height:15px; padding:3px 1px; font-family:Tahoma, Geneva, sans-serif; text-align:center;}
+.PublicPage .pGoSubmit{display:inline-block; overflow:hidden; margin:0 0px; padding:3px 1px; text-align:center; height:23px; cursor:pointer;  line-height:15px;}
+.PublicPage .pGoSubmitA{display:inline-block; overflow:hidden; vertical-align:middle;margin:0 0px;padding:0px 7px 2px; text-align:center;background-color:#fff; }
+
+/*badoo style*/
+
+div#badoopager {padding-right: 0px; padding-left: 0px; font-size: 13px; padding-bottom: 10px; color: #48b9ef; padding-top: 10px; font-family: arial, helvetica, sans-serif; background-color: #fff; text-align: center}
+div#badoopager a {border-right: #f0f0f0 2px solid; padding-right: 5px; border-top: #f0f0f0 2px solid; padding-left: 5px; padding-bottom: 2px; margin: 0px 2px; border-left: #f0f0f0 2px solid; color: #48b9ef; padding-top: 2px; border-bottom: #f0f0f0 2px solid; text-decoration: none}
+div#badoopager a:hover {border-right: #ff5a00 2px solid; border-top: #ff5a00 2px solid; border-left: #ff5a00 2px solid; color: #ff5a00; border-bottom: #ff5a00 2px solid}
+div#badoopager a:active {border-right: #ff5a00 2px solid; border-top: #ff5a00 2px solid; border-left: #ff5a00 2px solid; color: #ff5a00; border-bottom: #ff5a00 2px solid}
+div#badoopager span.current {border-right: #ff5a00 2px solid; padding-right: 5px; border-top: #ff5a00 2px solid; padding-left: 5px; font-weight: bold; padding-bottom: 2px; border-left: #ff5a00 2px solid; color: #fff; padding-top: 2px; border-bottom: #ff5a00 2px solid; background-color: #ff6c16}
+div#badoopager a.disabled {display: none}
+div#badoopager input[type=text]{width:30px}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+/*======================================================================
+	 zs增加样式 2017-7-31 09:20:06
+======================================================================*/
+.information_container {
+	border: 2px solid #ECF9FC;
+	border-radius: 5px 5px;
+	padding: 0px;
+	margin: 5px;
+}
+.show_info {
+	display: inline-block;
+}
+.edit_div {
+	display:inline-block;
+	float:right;
+	position: relative;
+	top: 10px;
+	right: 300px;
+}
+.p116-info-item {
+	margin-top: 20px;
+}

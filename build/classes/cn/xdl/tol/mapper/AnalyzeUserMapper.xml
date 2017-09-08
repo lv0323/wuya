@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!--@author Qin-->
+<mapper namespace="cn.xdl.tol.dao.AnalyzeUserMapper">
+	<select id="findUser" resultType="cn.xdl.tol.bean.User" parameterType="int">
+		select * from user 
+		<where>
+			<if test="user_id!=0">
+				user_id=#{user_id}
+			</if>
+		</where>
+	</select>
+</mapper>

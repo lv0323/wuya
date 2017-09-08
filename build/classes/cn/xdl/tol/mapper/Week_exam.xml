@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	 <!-- 
+	 
+	 
+	 		周测试卷配置文件
+	 
+	 
+	 
+	  -->
+<mapper namespace="cn.xdl.tol.dao.Weekly_TypeMapper">
+	<!-- 搜索所有学科名字 -->
+	<select id="findAllSubject" resultType="string">
+	select subject_name from subject
+	</select>
+	<!-- 根据周名搜索周编号 -->
+	<select id="findWeekIdByName" resultType="int" parameterType="string">
+	select weekly_type_id from weekly_type where weekly_type_name=#{name}
+	</select>
+	<!-- 根据学科名搜索所有学科下的周 -->
+	<select id="findWeekly_TypeBySubject_Name" resultType="cn.xdl.tol.bean.Weekly_Type" parameterType="String">
+	select * from weekly_type where subject_id=(select subject_id from subject where subject_name=#{name})
+	</select>
+	<select id="findWeekExamMessage" resultType="cn.xdl.tol.vo.Week_Exam_List_Vo" parameterType="cn.xdl.tol.po.SelectWeekExamPo">
+	select * from (select exam_2.id id,exam_2.name name,exam_2.time time,exam_2.tatal_points tatal_points,exam_2.display display,subject.subject_name subject,exam_2.weekly_type_name week from subject,(select exam_1.id,exam_1.name,exam_1.time,exam_1.tatal_points,exam_1.display ,week.subject_id,week.weekly_type_name from weekly_type week,(select week_exam_id id,weekly_type_id,week_exam_name name,time,tatal_points,display from week_exam where on_delete=0 ) exam_1 where week.weekly_type_id=exam_1.weekly_type_id) exam_2 where exam_2.subject_id=subject.subject_id) details
+	<where>
+		<if test="subject!=null">
+		subject=#{subject}
+		</if>
+		<if test="week!=null">
+		and week=#{week}
+		</if>
+		<if test="search!=null">
+		and name like #{search}
+		</if>
+	</where>
+	</select>
+	<!-- 删除试卷 -->
+	<update id="deleteWeekExam" parameterType="int">
+		update week_exam set on_delete=1 where week_exam_id=#{id}
+	</update>
+	<!-- 搜索周测试题信息 -->
+ 	<select id="findWeekExamQuestion" parameterType="int" resultType="cn.xdl.tol.vo.Week_Exam_Question_List_vo">
+		select a.id,a.easy,a.name,a.score,a.subject,a.week,a.knowlege from week_exam_details,(select a.question_id id,a.easy_type easy,a.question_name name,a.score score ,b.subject_name subject,c.weekly_type_name week,d.knowlege_name knowlege from question a,subject b,weekly_type c,knowlege d where a.subject_id=b.subject_id and a.weekly_type_id=c.weekly_type_id and a.knowlege_id=d.knowlege_id) a where week_exam_id=#{id} and a.id=week_exam_details.question_id
+	</select>
+	<!-- 搜索周测试卷信息 -->
+	<select id="findWeekExamMessageByExamId" parameterType="int" resultType="cn.xdl.tol.vo.Week_Exam_Message_vo">
+		select a.week_exam_id id,b.subject_name subject,count(c.question_id) countQuestion,a.tatal_points score from week_exam a,subject b,week_exam_details c,weekly_type d where a.week_exam_id=c.week_exam_id and a.weekly_type_id=d.weekly_type_id and d.subject_id=b.subject_id and a.week_exam_id=#{id}
+	</select>
+	<!-- 删除周测试卷试题 -->
+	<delete id="deleteExamQuestionByExamIdAndQuestionId">
+		delete from week_exam_details where week_exam_id=#{0} and question_id=#{1}
+	</delete>
+	<!-- 计算试卷试题总分 -->
+	<select id="sumDetailsScore" resultType="int" parameterType="int">
+		select sum(b.score) from week_exam_details a,question b where a.question_id=b.question_id and  week_exam_id=#{id}
+	</select>
+	<!-- 更新周测试卷表总分 -->
+	<update id="updateExamScore">
+		update week_exam set tatal_points=#{1} where week_exam_id=#{0}
+	</update>
+	<select id="findNotInWeekExamQuestionMessageByQuestionIdAndSubjectNameWeekName" resultType="cn.xdl.tol.vo.Not_In_Week_Exam_Question_Vo">
+	select a.question_id qid,a.easy_type easy,a.question_name name,b.subject_name subject,c.stage_name stage,d.knowlege_name knowlege,a.score score from question a ,subject b,stage c,knowlege d,(select a.question_id from (select question_id from question,weekly_type,subject where question.subject_id=subject.subject_id and question.weekly_type_id=weekly_type.weekly_type_id and subject_name=#{1} and weekly_type_name=#{2}) a left outer join(select question_id from week_exam_details where week_exam_id=#{0}) b on(a.question_id=b.question_id) where b.question_id is null) e where a.subject_id=b.subject_id and a.stage_id=c.stage_id and a.knowlege_id=d.knowlege_id and a.question_id=e.question_id
+	</select>
+	<select id="findKnowlegeNameBySubjectNameAndWeekName" resultType="string">
+	select a.knowlege_name from knowlege a,subject b,weekly_type c where a.subject_id=b.subject_id and a.weekly_type_id=c.weekly_type_id and b.subject_name=#{0} and c.weekly_type_name=#{1}
+	</select>
+	<select id="findWeekNameByWeekExamId" resultType="string" parameterType="int">
+	select weekly_type_name from weekly_type,week_exam where week_exam.weekly_type_id=weekly_type.weekly_type_id and week_exam_id=#{id}
+	</select>
+	<insert id="insertWeekExamQuestion">
+	insert into week_exam_details(week_exam_id,question_id) values(#{0},#{1});
+	</insert>
+	<update id="updateWeekExamDisplay">
+	 update week_exam set display=#{1} where week_exam_id=#{0};
+	</update>
+	
+	
+</mapper>

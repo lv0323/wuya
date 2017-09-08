@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>  <!DOCTYPE configuration             PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN"            "http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+<configuration>
+	
+	<!-- 加载SQL分页 -->
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageHelper">
+			<property name="dialect" value="mysql" />
+		</plugin>
+	</plugins>
+
+	<!-- 加载SQL定义文件 -->
+	<mappers>
+		<mapper resource="cn/xdl/tol/mapper/TestUserMapper.xml" />
+		<mapper resource="cn/xdl/tol/mapper/QuestionMapper.xml" />
+		<mapper resource="cn/xdl/tol/mapper/SubjectMapper.xml" />
+		<!-- 周测试卷搜索文件配置 -->
+		<mapper resource="cn/xdl/tol/mapper/Week_exam.xml" />
+		<mapper resource="cn/xdl/tol/mapper/WeekExamMapper.xml" />
+		<!-- 阶段测试卷搜索文件配置 -->
+		<mapper resource="cn/xdl/tol/mapper/StageExamMapper.xml" />
+		<mapper resource="cn/xdl/tol/mapper/ReportMapper.xml" />
+		<!-- 用户管理员搜索文件配置 -->
+		<mapper resource="cn/xdl/tol/mapper/UserMapper.xml" />
+		<mapper resource="cn/xdl/tol/mapper/ManagerMapper.xml" />
+		<mapper resource="cn/xdl/tol/mapper/Stage_exam.xml" />
+		<!-- @author  zs 
+			刷题测试试卷配置
+		-->
+		<mapper resource="cn/xdl/tol/mapper/Practice_Paper.xml"/>
+	</mappers>
+
+</configuration> 

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+			<!-- 查询学科表展示所有学科 -->
+<mapper namespace="cn.xdl.tol.dao.StageExamMapper">
+	<select id="findAllSubject" resultType="cn.xdl.tol.bean.Subject">
+		select * from subject
+	</select>
+			<!-- 通过学科id查询阶段表查询所有的阶段 -->
+	<select id="getStageBySubjectId" parameterType="int" resultType="cn.xdl.tol.bean.Stage">
+		select * from stage where subject_id=#{subject_id}
+	</select>
+			<!-- 通过阶段id获取对应阶段的所有试卷-->
+	<select id="getStageExamById" parameterType="int" resultType="cn.xdl.tol.bean.Stage_Exam">
+		select * from stage_exam where stage_id=#{stage_id}
+	</select>
+			<!-- 通过阶段试卷id或阶段测试试题表查询试题表获得阶段测 试卷 -->
+	<select id="getQuestionListById" parameterType="int" resultType="cn.xdl.tol.bean.Question">
+		select * from question q,(select * from stage_exam_details where stage_exam_id=#{stage_exam_id}) s where q.question_id=s.question_id
+	</select>
+			<!-- 通过阶段id获得阶段测试卷对象信息-->
+	<select id="getStageExamDetailsById" parameterType="int" resultType="cn.xdl.tol.bean.Stage_Exam">
+		select * from stage_exam where stage_exam_id=#{stage_exam_id}
+	</select>
+			<!-- 插入阶段测试卷成绩表 -->
+	<insert id="insertIntoStageGrade" parameterType="cn.xdl.tol.bean.Stage_Grade">
+		insert into stage_grade(user_id,stage_exam_id,subject_id,time) values(#{user_id},#{stage_exam_id},#{subject_id},#{time})
+	</insert>
+			<!-- 查询阶段测试卷成绩表 -->
+	<select id="findFromStageGrade" parameterType="cn.xdl.tol.bean.Stage_Grade" resultType="cn.xdl.tol.bean.Stage_Grade">
+		select * from stage_grade where user_id=#{user_id} and time=#{time}
+	</select>
+			<!--  插入阶段测试卷答案表-->
+	<insert id="insertIntoStageAnswer" parameterType="cn.xdl.tol.bean.Stage_Answer">
+		insert into stage_answer(stage_grade_id,question_id,user_answer,is_right) values(#{stage_grade_id},#{question_id},#{user_answer},#{is_right})
+	</insert>
+			<!--  查询成绩表 -->
+	<select id="findAllFromStageGrade" parameterType="int" resultType="cn.xdl.tol.bean.Stage_Grade">
+		select * from Stage_Grade where stage_exam_id=#{stage_exam_id}
+	</select>
+			<!-- 修改通过编号查询的成绩表编号加入总成绩 -->
+	<update id="updateScore" parameterType="cn.xdl.tol.bean.Stage_Grade">
+		update stage_grade set grade=#{grade} where stage_grade_id=#{stage_grade_id}
+	</update>
+			<!-- 通过用户编号查询用户表 -->
+	<select id="getUserByUserId" parameterType="int" resultType="cn.xdl.tol.bean.User">
+		select * from user where user_id=#{user_id}
+	</select>
+			<!-- 通过试卷编号查询试卷 -->
+	<select id="getStageExamByStageExamId" parameterType="int" resultType="cn.xdl.tol.bean.Stage_Exam">
+		select * from stage_exam where stage_exam_id=#{stage_exam_id}
+	</select>
+			<!-- 根据是卷编号查询这张卷子对应的知识点名字和数量 -->
+	<select id="getAllKnowlegeNameAndCount" parameterType="int" resultType="cn.xdl.tol.vo.StageExamKnowlegeVo">
+		select sum(score) grade,max(k.knowlege_name) knowlege_name,count(k.knowlege_id) count,max(k.knowlege_id) knowlege_id
+		from knowlege k,(select q.* from question q,(select * from stage_exam_details where stage_exam_id=#{stage_exam_id})d 
+		where d.question_id=q.question_id)d where d.knowlege_id=k.knowlege_id group by k.knowlege_id order by k.knowlege_id
+	</select>
+			<!-- 根据阶段成绩编号查询正确知识点的名字 编号和正确的个数 -->
+	<select id="getRightKnowlegeNameAndCount" parameterType="int" resultType="cn.xdl.tol.vo.StageExamKnowlegeVo">
+		select k.knowlege_name knowlege_name,b.knowlege_id knowlege_id,b.rightCount rightCount
+		from knowlege k,(select q.knowlege_id knowlege_id,sum(a.is_right) rightCount from 
+		question q,(select * from stage_answer
+		 where stage_grade_id=#{stage_grade_id})a 
+		where a.question_id=q.question_id group by q.knowlege_id)b where k.knowlege_id=b.knowlege_id
+	</select>
+			<!-- 根据阶段成绩编号查询知识点名称和总分 -->
+	<select id="getRightKnowlegeIdAndRightGrade" parameterType="int" resultType="cn.xdl.tol.vo.StageExamKnowlegeVo">
+		select k.knowlege_name knowlege_name,s.knowlege_id knowlege_id,s.rightGrade rightGrade from knowlege k, 
+		(select sum(score) rightGrade,q.knowlege_id knowlege_id  from question q,
+		(select * from stage_answer f where f.stage_grade_id=#{stage_grade_id} and is_right=1)a
+		where q.question_id=a.question_id group by q.knowlege_id)s where k.knowlege_id=s.knowlege_id 
+	</select>
+			<!-- 通过阶段试卷编号查询阶段 -->
+	<select id="getUserQuestionAnswer" parameterType="int" resultType="cn.xdl.tol.vo.StageExamUserQuestionVo">
+		select q.*,user_answer from question q,(select * from stage_answer where stage_grade_id=#{stage_grade_id})s where s.question_id=q.question_id
+	</select>
+</mapper>
